@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Carrier Checker</title>
+    <style>
+       body{
+            
+            background-image: url(jio.jpeg);
+            background-size: 500px 2200px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            height: 100vh;
+            
+
+        }
+        .container {
+            
+            background-color: rgb(240, 207, 207);
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 500px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 7px;
+            border: 50px solid #ccc;
+            text-align: center;
+            justify-content: center;
+            display: block;
+        }
+        button {
+            width: 80%;
+            padding: 10px;
+            background-color: #eb3131;
+            color: white;
+            border: none;
+            border-radius: 100px;
+            font-size: 16px;
+            cursor: pointer;
+            place-items:center;
+            justify-content: center;
+            margin: auto;
+            display: block;
+        }
+        button:hover {
+            background-color: #000000;
+        }
+        .result {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .jio {
+            color: rgb(0, 201, 252);
+        }
+        .airtel {
+            color: rgb(199, 0, 0);
+        }
+        .error {
+            color: #1b1a1a;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Check your number</h1>
+        <input type="text" id="phoneNumber" placeholder="Enter Phone Number" />
+        <button onclick="checkCarrier()">submit</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function checkCarrier() {
+            var phoneNumber = document.getElementById('phoneNumber').value;
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+
+            // Remove any non-numeric characters
+            phoneNumber = phoneNumber.replace(/\D/g, '');
+
+            if (phoneNumber.length < 10 || phoneNumber.length > 10) {
+                resultDiv.innerHTML = '<p class="error">Please enter a valid 10-digit phone number.</p>';
+                return;
+            }
+
+            var firstDigit = phoneNumber.charAt(0);
+
+            // Logic to identify the carrier based on the first digits
+            if (firstDigit == '6' || firstDigit == '8' || firstDigit == '99' || firstDigit == '90'|| firstDigit == '9'|| firstDigit == '94') {
+                // Check if it's Jio or Airtel
+                if (phoneNumber.startsWith('9') || phoneNumber.startsWith('99') || phoneNumber.startsWith('94') || phoneNumber.startsWith('90')) {
+                    resultDiv.innerHTML = '<p class="airtel">This is an Airtel number.</p>';
+                } else {
+                    resultDiv.innerHTML = '<p class="jio">This is a Jio number.</p>';
+                }
+            } else {
+                resultDiv.innerHTML = '<p class="error">This number does not belong to Jio or Airtel.</p>';
+            }
+        }
+    </script>
+
+</body>
+</html>
